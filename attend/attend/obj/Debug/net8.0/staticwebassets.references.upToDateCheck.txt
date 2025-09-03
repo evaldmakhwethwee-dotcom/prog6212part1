@@ -1,0 +1,5 @@
+C:\Users\RC_Student_lab\source\repos\attend\attend.Client\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\RC_Student_lab\source\repos\attend\attend.Client\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\RC_Student_lab\source\repos\attend\attend.Client\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\RC_Student_lab\source\repos\attend\attend.Client\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\RC_Student_lab\source\repos\attend\attend.Client\obj\Debug\net8.0\staticwebassets.build.json

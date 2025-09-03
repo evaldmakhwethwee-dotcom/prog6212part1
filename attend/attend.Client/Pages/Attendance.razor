@@ -1,0 +1,78 @@
+﻿@rendermode InteractiveWebAssembly
+@page "/attendance"
+
+<h1>Attendance Register</h1>
+
+<div>
+    <input placeholder="New student name" @bind-value="newStudentName" @bind-value:event="oninput" />
+    <button @onclick="AddStudent" disabled="@(string.IsNullOrWhiteSpace(newStudentName))">Add</button>
+</div>
+
+@if (Students.Count == 0)
+{
+    <p>No students yet — add some above.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in Students)
+            {
+                <tr>
+                    <td>@s.Id</td>
+                    <td>@s.Name</td>
+                    <td>
+                        <select @bind="s.Status">
+                            <option value="">-- Select --</option>
+                            <option value="Present">Present</option>
+                            <option value="Absent">Absent</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button @onclick="() => RemoveStudent(s.Id)">Remove</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Student> Students = new()
+    {
+        new Student { Id = 1, Name = "Student 1" },
+        new Student { Id = 2, Name = "Student 2" },
+    };
+
+    private string newStudentName = string.Empty;
+
+    private void AddStudent()
+    {
+        var name = newStudentName?.Trim();
+        if (string.IsNullOrWhiteSpace(name)) return;
+        var nextId = (Students.Count == 0) ? 1 : Students.Max(s => s.Id) + 1;
+        Students.Add(new Student { Id = nextId, Name = name, Status = string.Empty });
+        newStudentName = string.Empty;
+    }
+
+    private void RemoveStudent(int id)
+    {
+        var found = Students.FirstOrDefault(s => s.Id == id);
+        if (found is not null) Students.Remove(found);
+    }
+
+    private sealed class Student
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty; // "Present" or "Absent"
+    }
+}
